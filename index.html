@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+    	<meta charset="UTF-8" />
+    	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    	<link rel="stylesheet" href="styles.css" />
+		<script defer src="index.js">
+		</script>
+    	<title>🌸Campervan-Japan🌸</title>
+	</head>
+	<body style="background-image: url('japan_pixel.gif');">
+		<div class="background-image"></div>
+    	<div class="container">
+      		<div id="gamearea">
+        		<div id="details" class="d-flex justify-content-center mx-auto text-center mt-5 pt-5 flex-column">
+          			<!-- Displaying the details of the current room -->
+					<h1 id="room-name" class="text-center"></h1>
+          			<p id="room-description" class="text-center"></p>
+					<p id="action-information"></p>
+        		</div>
+      		</div>
+			<!-- Where the user inputs commands -->
+			<div align="center">
+				<input id="user-input" type="text">
+			</div>
+			<!-- Hidden, Autoplay Audio tag -->
+			<div align="center">
+				<audio id="music-player" style="display: none" controls autoplay>
+					<source src="forest_falling_night.mp3" type="audio/mpeg">
+				</audio>
+			</div>
+    	</div>
+  	</body>
+</html>
