@@ -53,10 +53,6 @@ class Room {
 
 	}
   
-
-
-
-
 	// const item = currentRoom.getItemFromInventory(itemName);
 	// 		 * 
 	// 		 * playerInventory.push(item);
@@ -163,19 +159,34 @@ class Character {
   
 // Creating Rooms
 const Kagoshima = new Room("Kagoshima");
-Kagoshima.description = "a seaside city on Japan's Kyushu Island. You're staying at a campsite here, in your Campervan.";
+Kagoshima.description = "You're on the outskirts of a seaside city on Japan's Kyushu Island.<br>You're staying at a campsite here, in your Campervan.<br><br>Take the road North to get to Kirishima Kinkowan National Park...";
 
 const NorthRouteOne = new Room("North Route 1");
-NorthRouteOne.description = "This road stretches out North. Follow it to reach Kirishima Kinkowan National Park";
+NorthRouteOne.description = "This road stretches out far to the North.<br>Follow it to reach Kirishima Kinkowan National Park.<br><br>The road South returns you to Kagoshima...";
 
 const KirishimaKinkowanNationalPark = new Room("Kirishima Kinkowan National Park");
-KirishimaKinkowanNationalPark.description = "You're in a scenic setting featuring volcanic mountains, long hiking trails and natural hot springs";
+KirishimaKinkowanNationalPark.description = "You're in a scenic setting, surrounded by sleepy volcanic mountains, long hiking trails and natural hot springs.<br><br>It is also a crossroads...<br><br>North takes you to Kumamoto, East to Miyazaki and West to Sogino Falls.<br>The road South returns you to Kagoshima...";
 
 const WestRouteOne = new Room("West Route One");
-WestRouteOne.description = "National Route 268 stretches far to the west coast. This is the road to Sogino Falls";
+WestRouteOne.description = "National Route 268 stretches far to the west coast, you're driving alongside the Sendai River.<br><br>This is the road to Sogino Falls...";
 
 const SoginoFalls = new Room("Sogino Falls");
-SoginoFalls.description = "a 210m wide waterfall in the Sendai River";
+SoginoFalls.description = "Surrounded by deep red leaves, there is a wide waterfall crashing into the Sendai River.<br><br>The road East will retun you to Kirishima Kinkowan National Park...";
+
+const EastRouteOne = new Room("East Route 1");
+EastRouteOne.description = "National Route 268 stretches from West coast to the East coast.<br><br>Out of your left window you can see forest covered hills, though the geography is much calmer out of your right window.<br><br>There is a small town or a 7/11 every few miles.<br><br>This is the road to Miyazaki..."
+
+const Miyazaki = new Room("Miyazaki");
+Miyazaki.description = "You're in the capital city of Miyazaki Prefecture.<br><br>This prefecture is known for its beautiful mountain and coastal scenery,<br>of which you are already familiar.<br><br>Maybe you should go for a coastal drive?<br><br>Kirishima Kinkowan National Park is a short drive to the West..."
+
+const NorthRouteTwo = new Room("North Route 2");
+NorthRouteTwo.description = "This road stretches further to the North still, and will get you to Kumamoto.<br><br>You can come off the main road here and turn East, towards Takachiho.<br>This is where you can find Takachiho Gorge and Amano Iwato Shrine..."
+
+const Takachiho = new Room("Takachiho Region");
+Takachiho.description = "Takachiho Region is the home of Takachiho Gorge, this ancient gorge is full of flowing crystal-clear mountain water.<br><br>Up a steep climb, and sheltered in a cave is the Amano Iwato Shrine.<br>This shrine commemorates the legend of the Shinto sun goddess Amaterasu, who hid in the cave when angered, plunging the world into darkness...<br><br>Turning back onto the road and driving North will take you to Kumamoto... "
+
+const Kumamoto = new Room("Kumamoto");
+Kumamoto.description = "Kumamoto is a city renowned for it's grand castle,<br>authentic foods and restorative hot-spring baths.<br><br>You've had a long journey...<br><br>Maybe stay a while?"
 
 // Creating Items
 const SoginoStamp = new Item("Sogino Stamp");
@@ -192,7 +203,7 @@ Hiroshi.conversation = "ey up duck. want sum Hendos for that pie or summut?";
 // Allocating items to rooms
 	// SoginoFalls.item = SoginoStamp;
 	// Kagoshima.item = Stick;
-SoginoFalls.addItemToInventory(SoginoStamp);
+	// SoginoFalls.addItemToInventory(SoginoStamp);
 
 //linking rooms together
 Kagoshima.linkRoom("north", NorthRouteOne);
@@ -200,8 +211,8 @@ Kagoshima.linkRoom("north", NorthRouteOne);
 NorthRouteOne.linkRoom("north", KirishimaKinkowanNationalPark);
 NorthRouteOne.linkRoom("south", Kagoshima);
 
-// KirishimaKinkowanNationalPark.linkRoom("north", NorthRouteTwo)
-// KirishimaKinkowanNationalPark.linkRoom("east", EastRouteOne)
+KirishimaKinkowanNationalPark.linkRoom("north", NorthRouteTwo)
+KirishimaKinkowanNationalPark.linkRoom("east", EastRouteOne)
 KirishimaKinkowanNationalPark.linkRoom("south", NorthRouteOne)
 KirishimaKinkowanNationalPark.linkRoom("west", WestRouteOne)
 
@@ -209,6 +220,19 @@ WestRouteOne.linkRoom("east", KirishimaKinkowanNationalPark)
 WestRouteOne.linkRoom("west", SoginoFalls)
 
 SoginoFalls.linkRoom("east", WestRouteOne)
+
+EastRouteOne.linkRoom("west", KirishimaKinkowanNationalPark)
+EastRouteOne.linkRoom("east", Miyazaki)
+
+Miyazaki.linkRoom("west", EastRouteOne)
+
+NorthRouteTwo.linkRoom("south", KirishimaKinkowanNationalPark)
+NorthRouteTwo.linkRoom("north", Kumamoto)
+NorthRouteTwo.linkRoom("east", Takachiho)
+
+Takachiho.linkRoom("west", NorthRouteTwo)
+
+Kumamoto.linkRoom("south", NorthRouteTwo)
 
 /**
  * currentroom
@@ -257,7 +281,7 @@ function displayRoomInfo() {
 	const roomDescription = currentRoom.description;
 	
 	roomNameElement.innerText = roomName;
-	roomDescriptionElement.innerText = roomDescription;
+	roomDescriptionElement.innerHTML = roomDescription;
 }
 
 function gameLoop() {
